@@ -2,6 +2,9 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:gallery_app/camera/camera.dart';
+import 'dart:io';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 
 List<CameraDescription> cameras;
 
@@ -47,10 +50,8 @@ class _MyBottomNavigationBarDemoState extends State<MyBottomNavigationBarDemo> {
       // appBar will be visible only at the images and videos screen
       // No appBar will be present during the camera screen
       appBar: _camScreen
-      ?
-        null      
-      :
-      AppBar(
+      ? null      
+      : AppBar(
         title: Center(child: Text('Gallery App')),
         backgroundColor: Colors.deepPurple,
       ),
@@ -58,7 +59,7 @@ class _MyBottomNavigationBarDemoState extends State<MyBottomNavigationBarDemo> {
       body: screen,
 
       bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         color: Colors.deepPurple,
         buttonBackgroundColor: Colors.deepPurple,
         height: 60,
