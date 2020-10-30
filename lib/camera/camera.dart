@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:gallery_app/main.dart';
 import 'package:flutter/material.dart';
@@ -67,12 +69,21 @@ class _CameraState extends State<Camera> {
   void _clickPicture() async {
     try {
 
-      final imgPath = path.join((await getTemporaryDirectory()).path, '${DateTime.now()}.png');
+      // final imgPath = path.join((await getTemporaryDirectory()).path, '${DateTime.now()}.png');
 
+      // camController.takePicture(imgPath);
+      // print(DateTime.now());
+      // print('Successfully captured image');
+
+      final directory = await getExternalStorageDirectory();
+      // final myImagePath = '${directory.path}/MyImages' ;
+      // final myImgDir = await new Directory(myImagePath).create();
+
+      final imgPath = path.join(directory.path,'${DateTime.now()}.png');
       camController.takePicture(imgPath);
+      print(imgPath);
 
-
-    }catch(e){
+    }on CameraException catch(e){
       print(e);
     }
   }
@@ -83,7 +94,8 @@ class _CameraState extends State<Camera> {
         camController.value.isTakingPicture) {
       return;
     }
-    final newIndex = _camIndex + 1 == cameras.length ? 0 : _camIndex += 1;
+    final newIndex = _camIndex < 1 ? _camIndex += 1 : 0;
+    print(newIndex);
     _initCamera(newIndex);
   }
 
